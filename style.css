@@ -1,3 +1,15 @@
 .table {
     margin-top: 40px;
 }
+
+.btn-danger {
+    margin-left: 10px;
+}
+
+@media screen and (max-width: 516px) {
+    .btn-danger {
+        margin-left: 0px;
+        margin-top: 10px;
+        display: block;
+    }
+}
