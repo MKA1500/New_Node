@@ -6,16 +6,34 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-<h1>AJAX & REST API</h1>
-<button id="getButton">READ/GET Products</button>
-<form id="createForm">
-    
-</form>
-<script type="text/javascript" src="jquery.js"></script>
-<script type="text/javascript" src="scripts.js"></script>
+<div class="jumbotron container">
+    <h1>AJAX & REST API</h1>
+    <div class="form-group">
+        <button id="get-button" class="btn btn-primary">READ/GET Products</button>
+    </div>
+    <form class="form">
+        <div class="form-group">
+            <input type="text" id="create-input" class="form-control" placeholder="Product">
+        </div>
+        <button type="submit" class="btn btn-success">Create/Post</button>
+    </form>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+    </table>
+    <script type="text/javascript" src="jquery.js"></script>
+    <script type="text/javascript" src="scripts.js"></script>
+</div>
 </body>
 </html>
