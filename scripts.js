@@ -35,5 +35,17 @@ $(document).ready(function () {
     $('table').on('click', '.update-button', function(){
         var rowEl = $(this).closest('tr');
         var id = rowEl.find('.id').text();
+        var newName = rowEl.find('.name').val();
+
+        $.ajax({
+            url: '/products/' + id,
+            method: 'PUT',
+            contentType: 'application/json',
+            data: JSON.stringify({ newName: newName}),
+            success: function(response){
+                console.log(response);
+                $('#get-button').click();
+            }
+        });
     });
 });
