@@ -31,4 +31,9 @@ $(document).ready(function () {
             }
         });
     });
+    // UPDATE/PUT
+    $('table').on('click', '.update-button', function(){
+        var rowEl = $(this).closest('tr');
+        var id = rowEl.find('.id').text();
+    });
 });
