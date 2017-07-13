@@ -1,4 +1,6 @@
 $(document).ready(function () {
+
+    var loaded = false;
     // GET/READ - default ajax method
     $('#get-button').on('click', function () {
         $.ajax({
@@ -12,6 +14,10 @@ $(document).ready(function () {
                 });
             }
         })
+        if (loaded == false) {
+            console.log('Products loaded');
+            loaded = true;
+        }
     });
     // POST
     $('#create-form').on('submit', function (event) {
@@ -23,8 +29,8 @@ $(document).ready(function () {
             url: '/products',
             method: 'POST',
             contentType: 'application/json',
-            data: JSON.stringify({ name: createInput.val() }),
-            success: function(response) {
+            data: JSON.stringify({name: createInput.val()}),
+            success: function (response) {
                 console.log(response);
                 createInput.val('');
                 $('#get-button').click();
@@ -32,7 +38,7 @@ $(document).ready(function () {
         });
     });
     // UPDATE/PUT
-    $('table').on('click', '.update-button', function(){
+    $('table').on('click', '.update-button', function () {
         var rowEl = $(this).closest('tr');
         var id = rowEl.find('.id').text();
         var newName = rowEl.find('.name').val();
@@ -41,11 +47,33 @@ $(document).ready(function () {
             url: '/products/' + id,
             method: 'PUT',
             contentType: 'application/json',
-            data: JSON.stringify({ newName: newName}),
-            success: function(response){
+            data: JSON.stringify({newName: newName}),
+            success: function (response) {
                 console.log(response);
                 $('#get-button').click();
             }
         });
     });
+
+    (function (message) {
+        var log = document.querySelector('#log');
+
+        ['log', 'warn', 'error'].forEach(function (verb) {
+            console[verb] = (function (method, verb, log) {
+                return function (text) {
+                    method(text);
+                    // handle distinguishing between methods any way you'd like
+                    var msg = document.createElement('code');
+                    msg.classList.add(verb);
+                    msg.textContent = verb + ': ' + text;
+                    log.appendChild(msg);
+                };
+            })(console[verb].bind(console), verb, log);
+        });
+    })();
+
+    $('#refresh').on('click', function(){
+        location.reload();
+    });
 });
+

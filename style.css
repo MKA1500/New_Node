@@ -6,6 +6,13 @@
     margin-left: 10px;
 }
 
+#log {
+    min-height: 30px;
+    height: auto;
+    width: 100%;
+    background-color: #FFF;
+}
+
 @media screen and (max-width: 516px) {
     .btn-danger {
         margin-left: 0px;

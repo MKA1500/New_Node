@@ -36,6 +36,23 @@ app.post('/products', function (req, res) {
     res.send('Successfully created product');
 });
 
+app.put('/products/:id', function(req, res){
+    var id = req.params.id;
+    var newName = req.body.newName;
+
+    var found = false;
+
+    products.forEach(function(product, index){
+        if(!found && product.id === Number(id)) {
+            product.name = newName;
+        }
+    });
+
+    res.send('Successfully updated product');
+});
+
 app.listen(PORT, function () {
     console.log('Server listening on ' + PORT);
 });
+
+/* node server */
