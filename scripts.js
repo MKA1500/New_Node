@@ -55,6 +55,23 @@ $(document).ready(function () {
         });
     });
 
+    // DELETE
+    $('table').on('clock', '.delete-button', function(){
+        var rowEl = $(this).closest('tr');
+        var id = rowEl.find('.id').text();
+
+        $.ajax({
+            url: '/products' + id,
+            method: 'DELETE',
+            contentType: 'application/json',
+            success: function(response){
+                console.log(response);
+                $('#get-button').click();
+            }
+        });
+    });
+
+    // LOGS SCREEN
     (function (message) {
         var log = document.querySelector('#log');
 
@@ -72,6 +89,7 @@ $(document).ready(function () {
         });
     })();
 
+    // RELOAD
     $('#refresh').on('click', function(){
         location.reload();
     });
