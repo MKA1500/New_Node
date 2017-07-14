@@ -10,7 +10,7 @@ $(document).ready(function () {
                 var tbodyEl = $('tbody');
                 tbodyEl.html('');
                 response.products.forEach(function (product) {
-                    tbodyEl.append('<tr><td class="id">' + product.id + '</td><td><input type="text" class="name form-control" value="' + product.name + '"></input></td><td><button class="update-button btn btn-info">UPDATE / PUT</button><button class="update-delete btn btn-danger">DELETE</button></td><tr></tr>');
+                    tbodyEl.append('<tr><td class="id">' + product.id + '</td><td><input type="text" class="name form-control" value="' + product.name + '"></input></td><td><button class="update-button btn btn-info">UPDATE / PUT</button><button class="delete-button btn btn-danger">DELETE</button></td><tr></tr>');
                 });
             }
         })
@@ -24,18 +24,22 @@ $(document).ready(function () {
         event.preventDefault();
 
         var createInput = $('#create-input');
-
-        $.ajax({
-            url: '/products',
-            method: 'POST',
-            contentType: 'application/json',
-            data: JSON.stringify({name: createInput.val()}),
-            success: function (response) {
-                console.log(response);
-                createInput.val('');
-                $('#get-button').click();
-            }
-        });
+        var typed = createInput.val();
+        if (typed == '' || typed == 'undefined') {
+            console.log('Please type the product\'s name');
+        } else {
+            $.ajax({
+                url: '/products',
+                method: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({name: createInput.val()}),
+                success: function (response) {
+                    console.log(response);
+                    createInput.val('');
+                    $('#get-button').click();
+                }
+            });
+        }
     });
     // UPDATE/PUT
     $('table').on('click', '.update-button', function () {
@@ -56,15 +60,15 @@ $(document).ready(function () {
     });
 
     // DELETE
-    $('table').on('clock', '.delete-button', function(){
+    $('table').on('click', '.delete-button', function () {
         var rowEl = $(this).closest('tr');
         var id = rowEl.find('.id').text();
 
         $.ajax({
-            url: '/products' + id,
+            url: '/products/' + id,
             method: 'DELETE',
             contentType: 'application/json',
-            success: function(response){
+            success: function (response) {
                 console.log(response);
                 $('#get-button').click();
             }
@@ -90,8 +94,7 @@ $(document).ready(function () {
     })();
 
     // RELOAD
-    $('#refresh').on('click', function(){
+    $('#refresh').on('click', function () {
         location.reload();
     });
 });
-
