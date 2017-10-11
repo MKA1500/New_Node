@@ -75,24 +75,6 @@ $(document).ready(function () {
         });
     });
 
-    // LOGS SCREEN
-    (function (message) {
-        var log = document.querySelector('#log');
-
-        ['log', 'warn', 'error'].forEach(function (verb) {
-            console[verb] = (function (method, verb, log) {
-                return function (text) {
-                    method(text);
-                    // handle distinguishing between methods any way you'd like
-                    var msg = document.createElement('code');
-                    msg.classList.add(verb);
-                    msg.textContent = verb + ': ' + text;
-                    log.appendChild(msg);
-                };
-            })(console[verb].bind(console), verb, log);
-        });
-    })();
-
     // RELOAD
     $('#refresh').on('click', function () {
         location.reload();
